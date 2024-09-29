@@ -12,13 +12,13 @@ The **Credit Risk Prediction** project aims to predict the credit risk of indivi
 
 ```plaintext
 credit-risk-prediction/
-├── README.md                 # Project overview and setup instructions
-├── requirements.txt          # Python dependencies
+├── README.md                  
+├── requirements.txt          
 ├── src/
-│   ├── main.py               # Streamlit app entry point
+│   ├── main.py            
 │   ├── lib/
-│   │   └── model.py          # Code to load and use the model
+│   │   └── model.py          
 │   └── tests/
-│       └── test_model.py     # Unit tests for your model
+│       └── test_model.py     
 ├── dataset/
-│   └── german.data           # Dataset used for training
+│   └── german.data           
