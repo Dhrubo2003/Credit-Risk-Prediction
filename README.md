@@ -20,11 +20,5 @@ credit-risk-prediction/
 │   │   └── model.py          # Code to load and use the model
 │   └── tests/
 │       └── test_model.py     # Unit tests for your model
-├── examples/
-│   └── example_input.txt     # Example input for testing the app
 ├── dataset/
 │   └── german.data           # Dataset used for training
-├── docs/
-│   └── documentation.md       # Documentation of the project
-└── build/
-    └── logs/                 # Logs generated during the build process (if needed)
