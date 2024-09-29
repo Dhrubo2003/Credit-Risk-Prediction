@@ -2,38 +2,36 @@ import streamlit as st
 import pickle
 import numpy as np
 
+# Step 1: Load the saved XGBoost model
+with open('credit_scoring_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
-# Load your trained model
-model = pickle.load(open('credit_scoring_model.pkl', "rb"))
+# Step 2: Define the Streamlit inputs
+st.title("Credit Risk Prediction")
 
-# Set the title of the app
-st.title("Credit Scoring Model")
+# Take inputs from the user
+age = st.number_input("Age", min_value=18, max_value=100, value=25)
+credit_amount = st.number_input("Credit Amount", min_value=100, value=1000)
+loan_duration = st.number_input("Loan Duration (in months)", min_value=6, max_value=72, value=12)
 
-# Input fields for the features used in the model
-st.write("Please enter the following information:")
-
-# Example input fields
-age = st.number_input("Age", min_value=0, max_value=120)
-credit_amount = st.number_input("Credit Amount", min_value=0)
-loan_duration = st.number_input("Loan Duration (in months)", min_value=0)
-
-# Handle categorical inputs: using numerical encoding or label encoding
-employment_status = st.selectbox("Employment Status", options=["Employed", "Unemployed", "Self-Employed"])
-housing_status = st.selectbox("Housing Status", options=["Own", "Rent", "Free"])
-
-# Convert categorical features to numeric format based on your encoding
-employment_mapping = {"Employed": 1, "Unemployed": 0, "Self-Employed": 2}
-housing_mapping = {"Own": 1, "Rent": 0, "Free": 2}
-
-# Encode the inputs
+# Employment status select box
+employment_status = st.selectbox("Employment Status", options=["Unemployed", "< 1 year", "1 - 4 years", "4 - 7 years", ">= 7 years"])
+employment_mapping = {"Unemployed": 0, "< 1 year": 1, "1 - 4 years": 2, "4 - 7 years": 3, ">= 7 years": 4}
 employment_encoded = employment_mapping[employment_status]
+
+# Housing status select box
+housing_status = st.selectbox("Housing Status", options=["Rent", "Own", "Free"])
+housing_mapping = {"Rent": 0, "Own": 1, "Free": 2}
 housing_encoded = housing_mapping[housing_status]
 
-# Button to make prediction
+# Step 3: Prepare the input for the model
+input_data = np.array([[age, credit_amount, loan_duration, employment_encoded, housing_encoded]])
+
+# Step 4: Make predictions
 if st.button("Predict"):
-    # Create the feature array
-    features = np.array([[age, credit_amount, loan_duration, employment_encoded, housing_encoded]])
-    
-    # Make prediction
-    prediction = model.predict(features)
-    st.write(f"Prediction: {int(prediction[0])}")  # Show prediction
+    prediction = model.predict(input_data)
+    if prediction[0] == 0:
+        st.write("Prediction: Low Risk")
+    else:
+        st.write("Prediction: High Risk")
+
