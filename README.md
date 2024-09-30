@@ -21,4 +21,7 @@ credit-risk-prediction/
 │   └── tests/
 │       └── test_model.py     
 ├── dataset/
-│   └── german.data           
+│   └── german.data
+```
+##Demo
+https://credit-risk-prediction-aibf.streamlit.app/
