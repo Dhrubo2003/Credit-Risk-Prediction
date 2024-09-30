@@ -23,5 +23,5 @@ credit-risk-prediction/
 ├── dataset/
 │   └── german.data
 ```
-##Demo
+## Demo
 https://credit-risk-prediction-aibf.streamlit.app/
